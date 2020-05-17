@@ -52,8 +52,6 @@ bool obs_module_load(void)
 	// Config Setup
 	_config = ConfigPtr(new Config());
 	_config->Load();
-
-	// Signal Router Setup
 	
 
 	// UI SETUP
@@ -72,8 +70,6 @@ bool obs_module_load(void)
 		if (settingsDialog->isVisible()) {
 			auto devNames = _deviceManager->GetPortsList();
 			settingsDialog->SetAvailableDevices(devNames);
-			
-
 		}
 	});
 	

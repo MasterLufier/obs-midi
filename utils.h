@@ -20,6 +20,7 @@ with this program. If not, see <https://www.gnu.org/licenses/>
 
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #include <QtCore/QString>
 #include <QtWidgets/QSpinBox>
@@ -59,6 +60,9 @@ namespace Utils {
 	obs_data_array_t* GetSourceFiltersList(obs_source_t* source, bool includeSettings);
 
 	bool IsValidAlignment(const uint32_t alignment);
+
+	std::vector <const char*> GetVideoSourceNames();
+	std::vector <const char*> GetAudioSourceNames();
 
 	obs_data_array_t* GetScenes();
 	obs_data_t* GetSceneData(obs_source_t* source);

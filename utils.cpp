@@ -402,6 +402,48 @@ obs_scene_t* Utils::GetSceneFromNameOrCurrent(QString sceneName) {
 	return obs_scene_from_source(sceneSource);
 }
 
+
+/* Returns a vector list of source names for sources with video
+*/
+vector <const char*> Utils::GetVideoSourceNames()
+{
+	vector <const char*> sourceNames;
+	obs_enum_sources([](void* data, obs_source_t* source) {
+		auto &sn = *static_cast<vector <const char*>*> (data);
+		bool hasAudio = (obs_source_get_output_flags(source) & OBS_SOURCE_VIDEO);
+		if (hasAudio)
+		{
+			sn.push_back(
+				obs_source_get_name(source)
+			);
+		}
+		return true;
+	}, static_cast <void *> (&sourceNames));
+
+	return sourceNames;
+}
+
+
+/* Returns a vector list of source names for sources with audio
+*/
+vector <const char*> Utils::GetAudioSourceNames()
+{
+	vector <const char*> sourceNames;
+	obs_enum_sources([](void* data, obs_source_t* source) {
+		auto &sn = *static_cast<vector <const char*>*> (data);
+		bool hasAudio = (obs_source_get_output_flags(source) & OBS_SOURCE_AUDIO);
+		if (hasAudio)
+		{
+			sn.push_back(
+				obs_source_get_name(source)
+			);
+		}
+		return true;
+	}, static_cast <void *> (&sourceNames));
+
+	return sourceNames;
+}
+
 obs_data_array_t* Utils::GetScenes() {
 	obs_frontend_source_list sceneList = {};
 	obs_frontend_get_scenes(&sceneList);
